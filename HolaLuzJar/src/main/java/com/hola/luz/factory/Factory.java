@@ -1,5 +1,6 @@
 package com.hola.luz.factory;
 
+import com.hola.luz.exception.ExceptionRead;
 import com.hola.luz.properties.GeneralPropierties;
 import com.hola.luz.service.ReadFileXMLService;
 import com.hola.luz.service.ReadFileCSVService;
@@ -13,7 +14,7 @@ public class Factory {
 	 * @param nameFile
 	 * @return
 	 */
-	static public ReadFileServiceInterface factoryReadFile (String nameFile) {
+	static public ReadFileServiceInterface factoryReadFile (String nameFile) throws ExceptionRead {
 		
 		ReadFileServiceInterface result = null;
 		
@@ -28,7 +29,8 @@ public class Factory {
 			result = new ReadFileCSVService();
 		} else {
 			
-			System.out.println("Factory.ReadFileServiceAbstract: " + GeneralPropierties.ERROR_NOT_PUT_EXTENSION);
+			String s = "Factory.ReadFileServiceAbstract: " + GeneralPropierties.ERROR_NOT_PUT_EXTENSION;
+			throw new ExceptionRead(s);
 		}
 		
 		return (result);

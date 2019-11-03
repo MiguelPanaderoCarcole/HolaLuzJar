@@ -24,21 +24,25 @@ public class App
 	    			 
 			if (file.exists()) {
 	    		
-				String nameFile = file.getName();
-				ReadFileServiceInterface readFileServiceInterface = Factory.factoryReadFile(nameFile);
-					
-				if (readFileServiceInterface != null) {
-					
-					try {
-					List<Measure> lstMesure = readFileServiceInterface.readFile(file);
-					
-					List<MeasureAnomalous> lstMeasureAnomalous = MeasureService.clasifyAllClient(lstMesure);
-					
-					MeasureService.printResult(lstMeasureAnomalous);
-					} catch (ExceptionRead e) {
-					
-						System.out.println(e.getMessage());		
+				try {
+				
+					String nameFile = file.getName();
+					ReadFileServiceInterface readFileServiceInterface = Factory.factoryReadFile(nameFile);
+						
+					if (readFileServiceInterface != null) {
+						
+						
+						List<Measure> lstMesure = readFileServiceInterface.readFile(file);
+						
+						List<MeasureAnomalous> lstMeasureAnomalous = MeasureService.clasifyAllClient(lstMesure);
+						
+						MeasureService.printResult(lstMeasureAnomalous);
+						
 					}
+				
+				} catch (ExceptionRead e) {
+					
+					System.out.println(e.getMessage());		
 				}
 				
 			} else {
